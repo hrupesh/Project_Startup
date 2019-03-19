@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Home (S.W)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy:100,300,400,700" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- Animate.css -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <!-- Ion Icon Fonts-->
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="{% static 'css/flexslider.css' %}">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+
+</head>
+
+<body>
+
+    <div class="colorlib-loader"></div>
+
+    <div id="page">
+        <nav class="colorlib-nav" role="navigation">
+            <div class="top-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-7 col-md-9">
+                            <div id="colorlib-logo"><a href="{% url 'home' %}" style="">S _ W 's</a></div>
+                        </div>
+                        <div class="col-sm-5 col-md-3 ss">
+                            <form action="#" class="search-wrap">
+
+                                {% block search %}
+                                {% endblock %}
+
+                                <!--
+                                <div class="form-group">
+                                    <input type="search" class="form-control search" style="display: none;position: absolute;" placeholder="Search">
+                                    <button class="btn-search btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
+                                </div>
+                                -->
+                                <style>
+                                    @media screen and (max-width: 600px) {
+                                        .ss {
+                                            position: absolute;
+                                            top: 1%;
+                                            right: 5%;
+                                        }
+                                        .search {
+                                            margin-left: 30%;
+                                            width: 70%;
+                                        }
+                                        h3 {
+                                            font-size: 10px !important;
+                                        }
+                                        .intro {
+                                            font-size: 30px;
+                                        }
+                                    }
+                                </style>
+                                <script>
+                                    $('.submit-search').click(function() {
+                                        $('.search').fadeToggle();
+                                    });
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-left menu-1">
+                            <ul>
+                                <li class="active"><a href="{% url 'user_home' %}">Home</a></li>
+                                <li class="has-dropdown">
+                                    <a href="men.html">Fruits</a>
+                                    <ul class="dropdown">
+                                        <li><a href="product-detail.html">Product Detail</a></li>
+                                        <li><a href="cart.html">Shopping Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="order-complete.html">Order Complete</a></li>
+                                        <li><a href="add-to-wishlist.html">Wishlist</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="women.html">Vegetables</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="contact.html">Contact-Vendor</a></li>
+                                
+                                <li class="cart"><a href="{% url 'view' %}"><i class="icon-shopping-cart"></i> Cart </a></li>
+                                <li class="float-right"><a href="{% url 'profile' %}">Profile</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sale">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 offset-sm-2 text-center">
+                            <div class="row">
+                                <div class="owl-carousel2">
+                                    <div class="item">
+                                        <div class="col">
+                                            <h3><a href="#">50% off on every Order!(New User's Only)</a></h3>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="col">
+                                            <h3><a href="#">Get upto 80% Off on your First Order</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        {% block banner %}  {% endblock %}
+    <!--<aside id="colorlib-hero">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li style="background-image: url({% static 'images/mandi3.jpg' %})">
+                        <div class="overlay"></div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <div class="desc text-danger">
+                                            <h1 class="head-1">Fresh</h1>
+                                            <h2 class="head-2">Vegetables</h2>
+                                            <h2 class="head-3">At your doorsteps's</h2>
+                                            <p class="category"><span>New trending shoes</span></p>
+                                            <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url({% static 'images/mandi2.jpg' %});">
+                        <div class="overlay"></div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <div class="desc">
+                                            <h1 class="head-1">Huge</h1>
+                                            <h2 class="head-2">Sale</h2>
+                                            <h2 class="head-3"><strong class="font-weight-bold">50%</strong> Off</h2>
+                                            <p class="category"><span>Big sale sandals</span></p>
+                                            <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url({% static 'images/mandi1.jpg' %});">
+                        <div class="overlay"></div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <div class="desc">
+                                            <h1 class="head-1">New</h1>
+                                            <h2 class="head-2">Arrival</h2>
+                                            <h2 class="head-3">up to <strong class="font-weight-bold">30%</strong> off</h2>
+                                            <p class="category"><span>New stylish shoes for men</span></p>
+                                            <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        -->
+        {% block cart %} {% endblock %}
+        
+
+        {% block line %} {% endblock %}
+        <!--<div class="colorlib-intro">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h2 class="intro">We at Sabji Wala's deliver the best to our customers</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+        {% block body %} {% endblock %}
+
+
+
+        <footer id="colorlib-footer" role="contentinfo">
+            <div class="container">
+                <div class="row row-pb-md">
+                    <div class="col footer-col colorlib-widget">
+                        <h4>About S.W</h4>
+                        <p>And band ka tola , likhna hai yaha pe and shand kuch bhi ,.. , :-) </p>
+                        <p>
+                            <ul class="colorlib-social-icons">
+                                <li><a href="#"><i class="icon-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                                <li><a href="#"><i class="icon-instagram"></i></a></li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="col footer-col colorlib-widget">
+                        <h4>Customer Care</h4>
+                        <p>
+                            <ul class="colorlib-footer-links">
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Returns/Exchange</a></li>
+                                <li><a href="#">Gift Voucher</a></li>
+                                <li><a href="#">Wishlist</a></li>
+                                <li><a href="#">Special</a></li>
+                                <li><a href="#">Customer Services</a></li>
+                                <li><a href="#">Site maps</a></li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="col footer-col colorlib-widget">
+                        <h4>Information</h4>
+                        <p>
+                            <ul class="colorlib-footer-links">
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Delivery Information</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">Order Tracking</a></li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div class="col footer-col">
+                        <h4>News</h4>
+                        <ul class="colorlib-footer-links">
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Exhibitions</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col footer-col">
+                        <h4>Contact Information</h4>
+                        <ul class="colorlib-footer-links">
+                            <li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
+                            <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
+                            <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
+                            <li><a href="#">yoursite.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copy">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <p>
+                            <span>
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> SW.com </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+    </div>
+
+    <!-- popper -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <!-- bootstrap 4.1 -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- jQuery easing -->
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <!-- Waypoints -->
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <!-- Flexslider -->
+    <script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
+    <!-- Owl carousel -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- Magnific Popup -->
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/magnific-popup-options.js' %}"></script>
+    <!-- Date Picker -->
+    <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+    <!-- Stellar Parallax -->
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <!-- Main -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

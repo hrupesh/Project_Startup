@@ -1,0 +1,187 @@
+{% extends 'products/base.html' %}
+{% load staticfiles %}
+
+{% block line %}
+
+<div class="container">
+        <h1>Account Settings</h1>
+          <hr>
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-3">
+            <div class="text-center">
+              <img src="{% static 'images/default_profile.png' %}" class="avatar img-circle" alt="avatar">
+              <h6>Upload a different photo...</h6>
+              
+              <input class="form-control" type="file">
+            </div>
+          </div>
+          
+          <!-- edit form column -->
+          <div class="col-md-9 personal-info">
+            <div class="alert alert-info alert-dismissable">
+              <a class="panel-close close" data-dismiss="alert">×</a> 
+              <i class="fa fa-coffee"></i>
+              This is an <strong>.alert</strong>. Use this to show important messages to the user.
+            </div>
+            <h3>Account Settings</h3>
+            <form method="POST" action="/profile_user/">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Email:</label>
+                <div class="col-lg-12">
+                  <input class="form-control" name="email" value="{{ register_models.email }}" type="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Username:</label>
+                <div class="col-md-12">
+                  <input class="form-control" name="username" value="{{ register_models.username }}" type="text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Password:</label>
+                <div class="col-md-12">
+                  <input class="form-control" value="{{ register_models.password }}" type="password">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-12">
+                  <input class="btn btn-primary" value="Save Changes" type="submit">
+                  <span></span>
+                  <input class="btn btn-default" value="Cancel" type="reset">
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+    <hr>
+
+    <div class="container">
+            <h1>Profile Settings</h1>
+              <hr>
+              
+              <!-- edit form column -->
+              <div class="col-md-12 personal-info">
+                <div class="alert alert-info alert-dismissable">
+                  <a class="panel-close close" data-dismiss="alert">×</a> 
+                  <i class="fa fa-coffee"></i>
+                  This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                </div>
+                <h3>Profile Settings</h3>
+                <form method="POST" action="/profile_settings/">
+                  {% csrf_token %}
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label class="col-lg-3 control-label">First name:</label>
+                    <div class="col-lg-12">
+                      <input class="form-control" name="firstname" value="{{ register_models.firstname }}" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-3 control-label">Last name:</label>
+                    <div class="col-lg-12">
+                      <input class="form-control" name="lastname" value="{{ register_models.lastname }}" type="text">
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Gender:</label>
+                    <div class="col-md-12">
+                      <input name="gender" value="Male" type="radio"> Male<br>
+                      <input name="gender" value="Female" type="radio"> Female<br>
+                      <input name="gender" value="Other" type="radio"> Other
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-12">
+                      <input class="btn btn-primary" value="Save Changes" type="submit">
+                      <span></span>
+                      <input class="btn btn-default" value="Cancel" type="reset">
+                    </div>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+        <hr>
+
+        <div class="container">
+                <h1>Contact Settings</h1>
+                  <hr>
+                  
+                  
+                  <!-- edit form column -->
+                  <div class="col-md-12 personal-info">
+                    <div class="alert alert-info alert-dismissable">
+                      <a class="panel-close close" data-dismiss="alert">×</a> 
+                      <i class="fa fa-coffee"></i>
+                      This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                    </div>
+                    <h3>Contact Settings</h3>
+                    <form method="POST" action="/profile_contact/">
+                      {% csrf_token %}
+                   
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                        <label class="col-lg-3 control-label">Mobile Number:</label>
+                        <div class="col-lg-12">
+                          <input class="form-control" name="contact_no" value="{{ register_models.contact_no }}" type="number">
+                        </div>
+                      </div>
+                      <!--<div class="form-group">
+                        <label class="col-lg-3 control-label">Time Zone:</label>
+                        <div class="col-lg-12">
+                          <div class="ui-select">
+                            <select id="user_time_zone" class="form-control">
+                              <option value="Hawaii">(GMT-10:00) Hawaii</option>
+                              <option value="Alaska">(GMT-09:00) Alaska</option>
+                              <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+                              <option value="Arizona">(GMT-07:00) Arizona</option>
+                              <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
+                              <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
+                              <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+                              <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+                            </select>
+                          </div>
+                        </div>-->
+                      </div>
+                      <div class="form-group">
+                            <label class="col-md-3 control-label">Facebook-link:</label>
+                            <div class="col-md-12">
+                              <input class="form-control" value="janeuser" type="text">
+                            </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">Google-link:</label>
+                        <div class="col-md-12">
+                          <input class="form-control" value="janeuser" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                            <label class="col-lg-6 control-label">Registered time Zone: <b>{{ register_models.timestamp }}</b></label>
+                      </div>
+                      <div class="form-group">
+                            <label class="col-lg-6 control-label">Your last Logged-in Time: <b>{{ register_models.updated }}</b></label>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-12">
+                          <input class="btn btn-primary" value="Save Changes" type="submit">
+                          <span></span>
+                          <input class="btn btn-default" value="Cancel" type="reset">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+              </div>
+            </div>
+            <hr>
+        
+    {% endblock %}

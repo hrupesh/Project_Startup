@@ -1,0 +1,205 @@
+{% extends 'products/base.html' %} {% load staticfiles %} {% block banner %}
+
+<aside id="colorlib-hero">
+    <div class="flexslider">
+        <ul class="slides">
+            <li style="background-image: url({% static 'images/mandi3.jpg' %})">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc text-danger">
+                                    <h1 class="head-1">Fresh</h1>
+                                    <h2 class="head-2">Vegetables</h2>
+                                    <h2 class="head-3">At your doorsteps's</h2>
+                                    <p class="category"><span>New trending shoes</span></p>
+                                    <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url({% static 'images/mandi2.jpg' %});">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc">
+                                    <h1 class="head-1">Huge</h1>
+                                    <h2 class="head-2">Sale</h2>
+                                    <h2 class="head-3"><strong class="font-weight-bold">50%</strong> Off</h2>
+                                    <p class="category"><span>Big sale</span></p>
+                                    <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url({% static 'images/mandi1.jpg' %});">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc">
+                                    <h1 class="head-1">New</h1>
+                                    <h2 class="head-2">Arrival</h2>
+                                    <h2 class="head-3">up to <strong class="font-weight-bold">30%</strong> off</h2>
+                                    <p class="category"><span>Vegetables and Fruits</span></p>
+                                    <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+{% endblock %} {% block search %}
+
+<div class="row">
+    <div class="col-sm-12 text-left menu-1">
+        <ul>
+            <li class="float-right"><a href="{% url 'user_login' %}">Login</a></li>
+            <li class="float-right"><a href="{% url 'user_signup' %}">Register</a></li>
+            <li class="float-right"><a href="{% url 'logout' %}">Logout</a></li>
+
+        </ul>
+    </div>
+</div>
+
+
+{% endblock %} {% block line %}
+
+<div class="colorlib-intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2 class="intro">We at Sabji Wala's deliver the best to our customers</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block body %} {% load staticfiles %}
+<div class="container mt-4 w-75">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 col-sm-12 col-12">
+            {% for item in product.product_image_set.all %}
+            <div class="card border-dark mb-4" style="width:100%;">
+                <a href="{% url 'details' product.slug %}">
+                    <img class="card-img-top" style="height:250px;" src="{% static 'images/dafault_image.png' %}" alt="Card image cap"> {% endfor %}
+                </a>
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col text-center p-0">
+
+                            <a href="{% url 'details' product.slug %}">
+                                <span class="text-darken-4"><h6>{{ product.title }}</h6></span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            {% for item in product.product_price_set.all %}
+                            <span class="text-muted">M.R.P: <del> {{item.mrp}} </del></span> {% endfor %}
+                        </div>
+                        <div class="col text-right p-0">
+                            {% for item in product.product_price_set.all %}
+                            <span class="text-darken-4"><i class="fas fa-rupee-sign"></i> {{ item.price }}(Kg)</span> {% endfor %}
+                        </div>
+                        <div class="col text-left pr-1">
+                            {% for item in product.product_discount_set.all %}
+                            <span class="text-success"> {{ item.Offer_in_percentage }}% OFF</span> {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <button id="addbtn{{forloop.counter}}" class="btn col-2 btn-success" style="margin-left: 10px; margin-right:-10px;"><i
+                            class="fa fa-plus" style="position: absolute;top:25%;right:25%;"></i></button>
+                        <form method="GET" class="col col-xl-8 col-sm-6 ml-1 mr-1" action="{% url 'cart_update' product.slug  %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="carth">
+                            <button class="btn btn-outline-primary atc" style="padding-left:10px; width: 100%;" type="submit">Add to Cart (<span id="cartqty{{forloop.counter}}">1</span>) </button>
+                        </form>
+                        <button class="btn col-2  btn-danger " style=" margin-left:-10px;" id="subbtn{{forloop.counter}}"><i
+                            class="fas fa-minus" style="position: absolute;top:25%;right:25%;"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('#carth').val('0')
+            $('#addbtn{{forloop.counter}}').on('click', function() {
+                items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                if (items <
+                    20) {
+                    items += 1;
+                }
+                $('#cartqty{{forloop.counter}}').html(items)
+                $('[name="carth"]').val(items)
+            });
+            $('#subbtn{{forloop.counter}}').on('click', function() {
+                items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                if (items > 1) {
+                    items -= 1;
+                }
+                $('#cartqty{{forloop.counter}}').html(items)
+                $('[name="carth"]').val(items)
+            });
+        </script>
+        {% endfor %}
+        <span type="hidden" id="hspan" name="hspan">
+    </div>
+</div>
+
+<style>
+    .btn {
+        border-radius: 40px;
+        transition: all 0.5s;
+    }
+    
+    .btn:hover {
+        transform: scale(1.05);
+        transition: all 0.2s;
+    }
+    
+    .card {
+        transition: all 0.5s;
+    }
+    
+    .card:hover {
+        transition: all 0.2s;
+        transform: scale(1.01);
+    }
+    
+    @media screen and (min-width: 600px) and (max-width:1000px) {
+        .atc {
+            font-size: 1rem;
+        }
+    }
+    
+    @media screen and (max-width: 550px) {
+        .atc {
+            font-size: 0.7rem;
+        }
+    }
+    
+    @media screen and (max-width: 450px) {
+        .col {
+            padding: 0px;
+        }
+    }
+</style>
+
+{% endblock %}

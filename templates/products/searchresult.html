@@ -1,0 +1,126 @@
+{% extends 'products/base.html' %}
+{% load staticfiles %}
+
+{% block search %}
+
+    <div class="form-group">
+        <form method="POST" action="/search/">
+            <input type="search" name="Keyword" class="form-control search" style="display: none;position: absolute;" placeholder="Search">
+            <button class="btn-search btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block body %} {% load staticfiles %}
+<div class="container mt-4 w-75">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 col-sm-12 col-12">
+            <div class="card border-dark mb-4" style="width:100%;">
+                {% for item in product.product_image_set.all %}
+                    <img class="card-img-top" style="height:250px;" src="{{ MEDIA_URL }}{{ item.image }}" alt="Card image cap">
+                {% endfor %}
+                <div class="card-body">
+
+                        <div class="row">
+                                
+                                <div class="col text-center p-0">
+                                    
+                                        <span class="text-darken-4"><h6>{{ product.title }}</h6></span>
+                                </div>
+                                
+                        </div>
+
+                    <div class="row">
+                        <div class="col">
+                            {% for item in product.product_price_set.all %}
+                                <span class="text-muted">M.R.P: <del> {{item.mrp}} </del></span>
+                            {% endfor %}
+                        </div>
+                        <div class="col text-right p-0">
+                            {% for item in product.product_price_set.all %}
+                                <span class="text-darken-4"><i class="fas fa-rupee-sign"></i> {{ item.price }}(Kg)</span>
+                            {% endfor %}
+                            </div>
+                        <div class="col text-left pr-1">
+                            {% for item in product.product_discount_set.all %}
+                                <span class="text-success"> {{ item.Offer_in_percentage }}% OFF</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <button id="addbtn" class="btn col-2 btn-success" style="margin-left: 10px; margin-right:-10px;"><i
+                                class="fa fa-plus" style="position: absolute;top:25%;right:25%;"></i></button>
+                        <div class="col-1 p-0" style="width: 10px !important;"></div>
+                        <button class="btn col-6  btn-outline-primary atc" style="padding-left:10px;">Add to Cart (<span id="cartqty">1</span>)</button>
+                        <div class="col-1 p-0"></div>
+                        <button class="btn col-2  btn-danger " style=" margin-left:-10px;" id="subbtn"><i
+                                class="fas fa-minus" style="position: absolute;top:25%;right:25%;"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .btn {
+        border-radius: 40px;
+        transition: all 0.5s;
+    }
+    
+    .btn:hover {
+        transform: scale(1.05);
+        transition: all 0.2s;
+    }
+    
+    .card {
+        transition: all 0.5s;
+    }
+    
+    .card:hover {
+        transition: all 0.2s;
+        transform: scale(1.01);
+    }
+    
+    @media screen and (min-width: 600px) and (max-width:1000px) {
+        .atc {
+            font-size: 10px;
+        }
+    }
+    
+    @media screen and (max-width: 550px) {
+        .atc {
+            font-size: 10px;
+        }
+    }
+    
+    @media screen and (max-width: 450px) {
+        .col {
+            padding: 0px;
+        }
+    }
+</style>
+<script>
+    console.log('hello');
+    $('#addbtn').on('click', function() {
+        items = parseInt(document.getElementById('cartqty').innerText);
+        if (items <
+            20) {
+            items += 1;
+        }
+        $('#cartqty').html(items)
+    });
+    $('#subbtn').on('click', function() {
+        items = parseInt(document.getElementById('cartqty').innerText);
+        if (items > 1) {
+            items -= 1;
+        }
+        $('#cartqty').html(items)
+    });
+</script>
+
+{% endblock %}

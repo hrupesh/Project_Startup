@@ -1,0 +1,113 @@
+{% extends 'products/base.html' %} {% block body %} {% load staticfiles %}
+<div class="container">
+    <h1 class="text-center mt-4 text-dark">Hello , {{ register_mod.firstname }} {{ register_mod.lastname }}
+    </h1>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col" media>
+            <img src="{% static 'images/default_profile.png' %}" alt="Not Found" style="width: 300px;height: 250px;border-radius: 48.5%;" class="img-rounded">
+        </div>
+        <div class="col-4 inf">
+            <div class="container mt-4 p-0 m-0" style="font-size:1.2rem;">
+                <p>{{ register_mod.username }}</p>
+                <p>{{ register_mod.contact_no }}</p>
+                <p>{{ register_mod.email }}</p>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-2"></div>
+            <div class="col-4">
+                <div class="card border-info">
+                    <a href="{% url 'your_order' %}">
+                    <div class="card-body">
+                        <img src="{% static 'images/dafault_image.png' %}" class="img img-responsive " alt="" style="width:150px;height:150px;"> Your Orders
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card border-info">
+                    <a href="{% url 'edit_profile_page' %}">
+                        <div class="card-body">
+                            <img src="{% static  'images/dafault_image.png' %}" class="img img-responsive " alt="" style="width:150px;height:150px;"> Manage Account
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-2"></div>
+            <div class="col-4">
+                <div class="card border-info">
+                    <a href="{% url 'edit_address' %}">
+                        <div class="card-body">
+                            <img src="{% static  'images/dafault_image.png' %}" class="img img-responsive " alt="" style="width:150px;height:150px;"> Manage Address
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card border-info">
+                    <div class="card-body">
+                        <img src="{% static  'images/dafault_image.png' %}" class="img img-responsive " alt="" style="width:150px;height:150px;"> Manage Account
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        transition: all 0.5s;
+    }
+    
+    .card:hover {
+        transition: all 0.2s;
+        transform: scale(1.1);
+    }
+    
+    @media screen and (max-width:766px) {
+        img {
+            margin: 0px !important;
+        }
+        .card img {
+            transition: all 0.5s;
+            height: 100px !important;
+            width: 100px !important;
+        }
+        .inf {
+            text-align: center;
+            flex: 1 100% !important;
+            max-width: 100% !important;
+        }
+    }
+    
+    @media screen and (max-width:500px) {
+        img {
+            width: 200px !important;
+            height: 200px !important;
+        }
+        .card img {
+            transition: all 0.5s;
+            height: 50px !important;
+            width: 50px !important;
+        }
+        .col-4 {
+            transition: all 0.5s;
+            flex: 1 100% !important;
+            max-width: 100% !important;
+            margin: 2%;
+        }
+        .inf {
+            font-size: 1rem !important;
+            text-align: center;
+        }
+    }
+</style>
+
+{% endblock %}

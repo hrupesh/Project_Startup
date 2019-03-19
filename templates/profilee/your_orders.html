@@ -1,0 +1,108 @@
+{% extends 'products/base.html' %}
+{% load staticfiles %}
+
+{% block line %}
+
+<div class="container">
+        <h1>Order History</h1>
+          <hr>
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-3">
+            <div class="text-center">
+                <ul class="list-group">
+                      <li class="list-group-item"><input type="search" class="col-md-12" placeholder="search date"> <button class="col-md-12 btn-md btn-info active">Search</button></li>
+                  
+                    
+                    <li class="list-group-item list-group-item-primary"><b>Overview</b></li>
+                    <li class="list-group-item list-group-item-secondary"><b>Order History</b></li>
+                    <li class="list-group-item list-group-item-success"><b>Manage Account</b></li>
+                    <li class="list-group-item list-group-item-danger"><b>Manage Address</b></li>
+                </ul>
+            </div>
+          </div>
+          
+          <!-- edit form column -->
+          <div class="col-md-9 personal-info">
+                {% if empty %}
+            <div class="alert alert-info alert-dismissable">
+              <a class="panel-close close" data-dismiss="alert">×</a> 
+              
+                <i class="fa fa-coffee"></i>
+              {{ message }}
+                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+              
+            </div>
+            {% endif %}
+                           
+            <div class="container">
+                    
+                        <h1 class="text-center">{{  message }}</h1>
+                    
+                    
+                        <div class='col-sm-12 col-sm-offset-2'>
+                            <input type="search" class="col-md-4" placeholder="Search Order"> <button class="btn-md btn-info active" ><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <table class="table">
+                    
+                             <thead>
+                                <th>    
+                                    Order Id
+                                </th>
+                                <th>    
+                                    Content
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Delivery time
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                
+                            </thead>
+                            <tfoot>
+                                <td><strong>Details</strong></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>{{ cart.Total }}</strong></td>
+                            </tfoot>
+                            {% for item in cart.cartitem_set.all %}
+                            <tr>
+                                <td>
+                                    <b>{{ item.product }}</b>
+                                </td>
+                                <td>
+                                    <img src="{% static 'images/dafault_image.png' %}" class="img-responsive" style="width:80%; height: 100px; margin: 0%;">
+                                </td>
+                                <td>
+                                    {{ item.quantity }}
+                                </td>
+                                <td>
+                                    {{ item.price }}
+                                </td>
+                                <td>
+                    
+                                </td>
+                                <td>
+                                    <a href="{% url 'cart_update' item.product.slug %}?qty=0">
+                                    Remove
+                                    </a>
+                                </td>
+                            </tr>    
+                            {% endfor %}
+                            </table>
+                    
+                    
+          </div>
+      </div>
+    </div>
+    <hr>
+
+        
+    {% endblock %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cards</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Product Tiles</h1>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <div class="card border-dark">
+                    <img class="card-img-top" src="/static/media/products/images/bglogin2.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-5 col-md-5 ">
+                                <span class="text-muted">M.R.P: <del> 66 </del></span>
+                            </div>
+                            <div class="col-sm-3 col-md-3  p-0">
+                                <span class="text-darken-4"><i class="fas fa-rupee-sign"></i> 20(Kg)</span>
+                            </div>
+                            <div class="col-sm-4 col-md-4 text-left pr-1">
+                                <span class="text-success">  69% OFF</span>
+                            </div>
+                        </div>
+                        <div class="row mt-4 ml-1 mr-1">
+                            <button id="addbtn" class="btn col-md-2 col-sm-2 btn-small btn-success mr-2"><i class="fas fa-plus"></i></button>
+                            <button class="btn col-md-7 col-sm-8 btn-small btn-outline-primary">Add to Cart (<span id="cartqty">1</span>) </button> <button class="btn col-md-2 col-sm-2 btn-small btn-danger ml-2" id="subbtn"><i class="fas fa-minus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .btn {
+            transition: all 0.5s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            transition: all 0.2s;
+        }
+        
+        .card {
+            transition: all 0.5s;
+        }
+        
+        .card:hover {
+            transition: all 0.2s;
+            transform: scale(1.01);
+        }
+    </style>
+    <script>
+        console.log('hello');
+        $('#addbtn').on('click', function() {
+            items = parseInt(document.getElementById('cartqty').innerText);
+            if (items <
+                20) {
+                items += 1;
+            }
+            $('#cartqty').html(items)
+        });
+        $('#subbtn').on('click', function() {
+            items = parseInt(document.getElementById('cartqty').innerText);
+            if (items > 1) {
+                items -= 1;
+            }
+            $('#cartqty').html(items)
+        });
+    </script>
+
+</body>
+
+</html>
