@@ -39,7 +39,9 @@ def detail(request, slug):
     #try:
         print ("hey u r in detail view")
         details = product.objects.get(slug=slug)
+        products = product.objects.all()
         context = {
-            'details': details
+            'prod': details,
+            'products':products
         }
         return render(request, 'products/detail.html', context)

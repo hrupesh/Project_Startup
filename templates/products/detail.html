@@ -1,72 +1,285 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'products/base.html' %}{% block body %} {% load staticfiles %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title -->
-    <title>Colorlib App - App Landing Page</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.ico">
-	{% load staticfiles %}
-    <!-- Core Stylesheet -->
-    <link href="{% static 'css/detail_style.css' %}" rel="stylesheet">
-
-    <!-- Responsive CSS -->
-    <link href="{% static 'css/detail_responsive.css' %}" rel="stylesheet">
-
-</head>
-
-<body>
-    <!-- Preloader Start -->
-    <div id="preloader">
-        <div class="colorlib-load"></div>
+<div class="container  mt-4">
+    <h1 class="text-center text-capitalize text-info" style="letter-spacing: 5px;">{{prod.title}}</h1>
+    <div class="row">
+        <div class="col-md-4 col-xl-4 col-sm-12">
+            {% for img in prod.product_image_set.all %}
+            <img src="{{img.image.url}}" class="img-responsive imagep image-responsive" style="height: 300px;width: 300px;" alt=""> {% endfor %}
+        </div>
+        <div class="col-md-6 col-xl-6 col-sm-12 mt-4 ml-4">
+            {{prod.description}}
+            <hr>
+            <div class="mt-2">
+                {% for pr in prod.product_price_set.all %}
+                <div class="d-block"> M.R.P :<span class="text-danger "> &nbsp; <del> <i class="fas fa-rupee-sign">
+                                &nbsp; </i>{{ pr.mrp }}</del></span></div>
+                <div class="b-block"> Offer Price :<span class="text-success"> &nbsp; <i class="fas fa-rupee-sign"></i>
+                        {{ pr.price }}(Kg)</span> {% for item in prod.product_discount_set.all %}
+                    <span class="ml-1  badge badge-pill badge-success"> ( {{ item.Offer_in_percentage }}% ) OFF</span> {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="row mt-4 w-75 ">
+                <form method="GET" class="col col-xl-8 col-sm-8 col-md-8 ml-1 mr-1" action="{% url 'cart_update' prod.slug  %}">
+                    {% csrf_token %}
+                    <input type="number" class="numinput" placeholder="1" value="1" min="1" max="20" required name="carth">
+                    <button class="btn btn-danger atc" style="padding-left:10px; width: 100%;" type="submit">Add to Cart
+                        (<span id="cartqty{{forloop.counter}}">1</span>) </button>
+                </form>
+            </div>
+            <script>
+                $('#carth').val('0')
+                $('#addbtn1{{forloop.counter}}').on('click', function() {
+                    items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                    if (items <
+                        20) {
+                        items += 1;
+                    }
+                    $('#cartqty{{forloop.counter}}').html(items)
+                    $('[name="carth"]').val(items)
+                });
+                $('#subbtn1{{forloop.counter}}').on('click', function() {
+                    items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                    if (items > 1) {
+                        items -= 1;
+                    }
+                    $('#cartqty{{forloop.counter}}').html(items)
+                    $('[name="carth"]').val(items)
+                });
+            </script>
+        </div>
     </div>
+</div>
+<style>
+    @media screen and (max-width: 450px) {
+        .imagep {
+            height: 200px !important;
+            width: 200px !important;
+        }
+    }
+    
+    .numinput {
+        border: solid rgba(60, 253, 2, 0.835) 1px;
+        width: 75px;
+        margin-bottom: 20px;
+        box-shadow: 1px 1px 5px rgba(21, 255, 0, 0.555);
+        border-radius: 15px;
+        outline: none;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+</style>
 
-    <!-- ***** Header Area Start ***** -->
-    <!-- ***** Header Area End ***** -->
 
-    <!-- ***** Wellcome Area Start ***** -->
-        <!-- ***** Wellcome Area End ***** -->
+<div class="colorlib-intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2 class="intro">Add more to your Cart</h2>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <!-- ***** Special Area Start ***** -->
-            <!-- Special Description Area -->
-        <div class="special_description_area mt-150">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="special_description_img">
-                            <img src="img/bg-img/special.png" alt="">
+<style>
+    #row::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 1px 1px 6px rgba(245, 6, 6, 0.3);
+        background-color: rgb(144, 140, 140);
+        box-shadow: 1px 1px 6px rgba(245, 6, 6, 0.30);
+        border-radius: 25px;
+    }
+    
+    #row::-webkit-scrollbar {
+        width: 10px;
+        border-radius: 25px;
+        background-color: rgb(255, 255, 255);
+    }
+    
+    #row::-webkit-scrollbar-thumb {
+        background-color: #21fa04;
+        border-radius: 25px;
+        box-shadow: 1px 1px 10px #8df602;
+    }
+</style>
+
+
+
+
+<div class="container mt-4 p-2">
+    <button id="btnleft" class="btn btn-outline-success" style="left:2.5%;position: absolute;margin-top:15%;box-shadow: 1px 1px 10px rgb(60, 255, 0);">
+        <</button>
+    <button id="btnright" class="btn btn-outline-success" style="right:2.5%; position: absolute;margin-top:15%;box-shadow: 1px 1px 10px rgb(60, 255, 0);">>
+    </button>
+    <div class=" prow p-2" id="row" style="overflow-x: scroll; overflow-y: none; white-space: nowrap; width: 100% !important;">
+        {% for product in products %}
+        <div class="prod ml-2 mr-2 " style="display: inline-block !important;">
+            <div class="card border-dark mb-4 " style="width:300px !important;">
+                {% for item in product.product_image_set.all %}
+                <a href="{% url 'details' product.slug %} ">
+                    <img class="card-img-top " style="height:250px; " src="{% static 'images/dafault_image.png' %} " alt="Card image cap "> {% endfor %}
+                </a>
+                <div class="card-body ">
+
+                    <div class="row ">
+
+                        <div class="col text-center p-0 ">
+
+                            <a href="{% url 'details' product.slug %} ">
+                                <strong class="text-darken-4 ">
+                                    <h6 id="{{product.title}} ">{{ product.title }}</h6>
+                                </strong>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        <div class="col ">
+                            {% for item in product.product_price_set.all %}
+                            <span class="text-muted ">M.R.P: <del> {{item.mrp}} </del></span> {% endfor %}
+                        </div>
+                        <div class="col text-right p-0 ">
+                            {% for item in product.product_price_set.all %}
+                            <span class="text-darken-4 "><i class="fas fa-rupee-sign "></i> {{ item.price }}(Kg)</span> {% endfor %}
+                        </div>
+                        <div class="col text-left pr-1 ">
+                            {% for item in product.product_discount_set.all %}
+                            <span class="text-success "> {{ item.Offer_in_percentage }}% OFF</span> {% endfor %}
                         </div>
                     </div>
-                    <div class="col-lg-6 col-xl-5 ml-xl-auto">
-                        <div class="special_description_content">
-                            <h2>Our Best Propositions for You!</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-                            <div class="app-download-area">
-                                <div class="app-download-btn wow fadeInUp" data-wow-delay="0.2s">
-                                    <!-- Google Store Btn -->
-                                    <a href="#">
-                                        <i class="fa fa-android"></i>
-                                        <p class="mb-0"><span>available on</span> Google Store</p>
-                                    </a>
-                                </div>
-                                <div class="app-download-btn wow fadeInDown" data-wow-delay="0.4s">
-                                    <!-- Apple Store Btn -->
-                                    <a href="#">
-                                        <i class="fa fa-apple"></i>
-                                        <p class="mb-0"><span>available on</span> Apple Store</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row mt-3 text-center ">
+                        <button id="addbtn{{forloop.counter}} " class="btn col-2 btn-success " style="margin-left: 10px; margin-right:-10px; "><i class="fa fa-plus "
+                                style="position: absolute;top:25%;right:25%; "></i></button>
+                        <form method="GET " class="col col-xl-8 col-sm-8 col-md-8 ml-1 mr-1 " action="{% url 'cart_update' product.slug %} ">
+                            {% csrf_token %}
+                            <input type="hidden" name="carth">
+                            <button class="btn btn-outline-primary atc " style="padding-left:10px; width: 100%; " type="submit ">Add to Cart (<span id="cartqty{{forloop.counter}} ">1</span>) </button>
+                        </form>
+                        <button class="btn col-2 btn-danger " style=" margin-left:-10px; " id="subbtn{{forloop.counter}} "><i class="fas fa-minus "
+                                style="position: absolute;top:25%;right:25%; "></i></button>
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            function myFunction() {
+                //console.log('hello')
+                var input, filter;
+                input = document.getElementById('myInput');
+                //console.log(input)
+                filter = input.value.toUpperCase();
+                //console.log(filter)
+                elems = document.querySelectorAll('.prow .prod');
+                //console.log(elems)
+                Array.from(elems).forEach(function(elem) {
+                    title = elem.querySelector('h6').innerText;
+                    //console.log(title)
+                    //console.log(title.toUpperCase().indexOf(filter))
+                    if (title.toUpperCase().indexOf(filter) != -1) {
+                        elem.style.display = 'block'
+                    } else {
+                        elem.style.display = 'none'
+                    }
+                })
+            }
+        </script>
+        <script>
+            $('#carth').val('0')
+            $('#addbtn{{forloop.counter}}').on('click', function() {
+                items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                if (items <
+                    20) {
+                    items += 1;
+                }
+                $('#cartqty{{forloop.counter}}').html(items)
+                $('[name="carth "]').val(items)
+            });
+            $('#subbtn{{forloop.counter}}').on('click', function() {
+                items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                if (items > 1) {
+                    items -= 1;
+                }
+                $('#cartqty{{forloop.counter}}').html(items)
+                $('[name="carth "]').val(items)
+            });
+        </script>
+        {% endfor %}
+    </div>
+</div>
 
+<script>
+    $("#btnleft").click(function() {
+        var pos = $("#row").scrollLeft();
+        //alert(pos);
+        npos = pos - 300;
+        $("#row").scrollLeft(npos);
+    });
+    $("#btnright").click(function() {
+        var pos = $("#row").scrollLeft();
+        //alert(pos);
+        npos = pos + 300;
+        $("#row").scrollLeft(npos);
+    });
+</script>
+<style>
+    .btn {
+        border-radius: 40px;
+        transition: all 0.5s;
+    }
+    
+    .btn:hover {
+        transform: scale(1.05);
+        transition: all 0.2s;
+    }
+    
+    * {
+        transition: all 0.5s;
+        scroll-behavior: smooth;
+    }
+    
+    .card {
+        transition: all 0.5s;
+    }
+    
+    .card:hover {
+        transition: all 0.2s;
+        transform: scale(1.01);
+    }
+    
+    .prow {
+        transition: all 1s;
+        scroll-behavior: smooth;
+    }
+    
+    .prod {
+        transition: all 1s;
+        scroll-behavior: smooth;
+    }
+    
+    @media screen and (min-width: 600px) and (max-width:1000px) {
+        .atc {
+            font-size: 0.6rem;
+        }
+        .col-md-4 {
+            flex: 50%;
+            justify-content: center;
+            align-content: center;
+            max-width: 50%;
+        }
+    }
+    
+    @media screen and (max-width: 550px) {
+        .atc {
+            font-size: 0.7rem;
+        }
+    }
+    
+    @media screen and (max-width: 450px) {
+        .col {
+            padding: 0px;
+        }
+    }
+</style>
+{% endblock %}
