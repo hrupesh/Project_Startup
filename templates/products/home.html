@@ -69,7 +69,6 @@
             <li class="float-right"><a href="{% url 'user_login' %}">Login</a></li>
             <li class="float-right"><a href="{% url 'user_signup' %}">Register</a></li>
             <li class="float-right"><a href="{% url 'logout' %}">Logout</a></li>
-
         </ul>
     </div>
 </div>
@@ -88,10 +87,17 @@
 </div>
 
 {% endblock %} {% block body %} {% load staticfiles %}
+
+<div class="text-center container mt-4 mb-4">
+    <input type="text " class="w-75 text-success " style="border-radius: 25px;border:rgb(10, 255, 2) 1px solid; box-shadow: 2.5px 2.5px 5px rgb(51, 255, 0);  outline: none;padding-left:20px;font-family: Raleway;font-size: 1rem;" id="myInput" onkeyup="myFunction()"
+        placeholder="     Search here ....... ">
+</div>
+
+
 <div class="container mt-4 w-75">
-    <div class="row">
+    <div class="row prow">
         {% for product in products %}
-        <div class="col-md-4 col-sm-12 col-12">
+        <div class="prod col-md-4 col-sm-12 col-12">
             {% for item in product.product_image_set.all %}
             <div class="card border-dark mb-4" style="width:100%;">
                 <a href="{% url 'details' product.slug %}">
@@ -104,7 +110,9 @@
                         <div class="col text-center p-0">
 
                             <a href="{% url 'details' product.slug %}">
-                                <span class="text-darken-4"><h6>{{ product.title }}</h6></span>
+                                <span class="text-darken-4">
+                                    <h6 id="{{product.title}}">{{ product.title }}</h6>
+                                </span>
                             </a>
                         </div>
 
@@ -124,20 +132,43 @@
                             <span class="text-success"> {{ item.Offer_in_percentage }}% OFF</span> {% endfor %}
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <button id="addbtn{{forloop.counter}}" class="btn col-2 btn-success" style="margin-left: 10px; margin-right:-10px;"><i
-                            class="fa fa-plus" style="position: absolute;top:25%;right:25%;"></i></button>
-                        <form method="GET" class="col col-xl-8 col-sm-6 ml-1 mr-1" action="{% url 'cart_update' product.slug  %}">
+                    <div class="row mt-3 text-center">
+                        <button id="addbtn{{forloop.counter}}" class="btn col-2 btn-success" style="margin-left: 10px; margin-right:-10px;"><i class="fa fa-plus"
+                                style="position: absolute;top:25%;right:25%;"></i></button>
+                        <form method="GET" class="col col-xl-8 col-sm-8 col-md-8 ml-1 mr-1" action="{% url 'cart_update' product.slug  %}">
                             {% csrf_token %}
                             <input type="hidden" name="carth">
-                            <button class="btn btn-outline-primary atc" style="padding-left:10px; width: 100%;" type="submit">Add to Cart (<span id="cartqty{{forloop.counter}}">1</span>) </button>
+                            <button class="btn btn-outline-primary atc" style="padding-left:10px; width: 100%;" type="submit">Add to Cart
+                                (<span id="cartqty{{forloop.counter}}">1</span>) </button>
                         </form>
-                        <button class="btn col-2  btn-danger " style=" margin-left:-10px;" id="subbtn{{forloop.counter}}"><i
-                            class="fas fa-minus" style="position: absolute;top:25%;right:25%;"></i></button>
+                        <button class="btn col-2  btn-danger " style=" margin-left:-10px;" id="subbtn{{forloop.counter}}"><i class="fas fa-minus"
+                                style="position: absolute;top:25%;right:25%;"></i></button>
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            function myFunction() {
+                //console.log('hello')
+                var input, filter;
+                input = document.getElementById('myInput');
+                //console.log(input)
+                filter = input.value.toUpperCase();
+                //console.log(filter)
+                elems = document.querySelectorAll('.prow .prod');
+                //console.log(elems)
+                Array.from(elems).forEach(function(elem) {
+                    title = elem.querySelector('h6').innerText;
+                    //console.log(title)
+                    //console.log(title.toUpperCase().indexOf(filter))
+                    if (title.toUpperCase().indexOf(filter) != -1) {
+                        elem.style.display = 'block'
+                    } else {
+                        elem.style.display = 'none'
+                    }
+                })
+            }
+        </script>
         <script>
             $('#carth').val('0')
             $('#addbtn{{forloop.counter}}').on('click', function() {
@@ -168,33 +199,40 @@
         border-radius: 40px;
         transition: all 0.5s;
     }
-    
+
     .btn:hover {
         transform: scale(1.05);
         transition: all 0.2s;
     }
-    
+
     .card {
         transition: all 0.5s;
     }
-    
+
     .card:hover {
         transition: all 0.2s;
         transform: scale(1.01);
     }
-    
+
     @media screen and (min-width: 600px) and (max-width:1000px) {
         .atc {
-            font-size: 1rem;
+            font-size: 0.6rem;
+        }
+
+        .col-md-4 {
+            flex: 50%;
+            justify-content: center;
+            align-content: center;
+            max-width: 50%;
         }
     }
-    
+
     @media screen and (max-width: 550px) {
         .atc {
             font-size: 0.7rem;
         }
     }
-    
+
     @media screen and (max-width: 450px) {
         .col {
             padding: 0px;
