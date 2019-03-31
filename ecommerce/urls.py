@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from user_model.views import user_signup, user_login, activate, user_home,password_reset, activate_password, password_reset_new, logout
 from products.views import home, search, detail
-from cart.views import view, cart_update
+from cart.views import view, cart_update , checkout
 from Loma.views import Loma, loma_register, loma_login
 from profilee.views import profile, edit_profile_page, edit_address, address_user, profile_user, profile_settings, profile_contact, your_order
 from django.conf import settings
@@ -51,6 +51,7 @@ urlpatterns = [
     url(r'^your_order/', your_order, name='your_order'),
     url(r'^profile_contact/', profile_contact, name='profile_contact'),
     url(r'^address_user/', address_user, name='address_user'),
+    url(r'^checkout/', checkout , name='checkout'),
     url(r'^logout/', logout, name='logout'),
     
     

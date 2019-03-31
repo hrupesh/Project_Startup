@@ -1,0 +1,50 @@
+{% extends 'products/base.html' %}{% block body %}
+<div class="container mt-4">
+    <a class="btn btn-outline-danger d-inline-block" style=""><i class=" fa fa-shopping-cart "></i>  Back To Cart</a>
+    <p class=" text-center" style="font-size: 2.5rem; ">Checkout</p>
+</div>
+<div class="container w-75 ">
+    <h4 class="text-center text-info ">Select Payment Method :</h4>
+    <br>
+    <div class="row ">
+        <div class="col ">
+            <div class="card paytm ">
+                <a href="#!# " onclick="window.alert( 'Pay With Paytm') ">
+                    <img src="https://maniartyre.com/wp-content/uploads/2018/05/Paytm-high-resolution-512x512-original-logo.png " style="height: 200px;width:100%; " class="card-image " alt="paytm ">
+                </a>
+            </div>
+        </div>
+        <div class="col ">
+            <div class="card cod ">
+                <a href="#!# " onclick="window.alert( 'Pay On Delivery') ">
+                    <img src="http://winnerhome.in/wp-content/uploads/2017/08/header-cashondelivery-eng.png " style="height: 200px;width:100%; " class="card-image " alt="COD ">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .paytm {
+        border: 1px solid rgb(0, 204, 255);
+        box-shadow: 2px 2px 6px rgb(0, 153, 255);
+        transition: all 0.5s;
+    }
+    
+    .cod {
+        border: 1px solid rgb(3, 168, 72);
+        box-shadow: 2px 2px 6px rgb(19, 151, 2);
+        transition: all 0.5s;
+    }
+    
+    .paytm:hover {
+        transition: all 0.2s;
+        transform: scale(1.09);
+    }
+    
+    .cod:hover {
+        transition: all 0.2s;
+        transform: scale(1.09);
+    }
+</style>
+{% endblock %}

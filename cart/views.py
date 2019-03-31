@@ -202,3 +202,7 @@ def cart_update(request, slug):
     else:
         cart.products.remove(prod)  
 '''
+
+
+def checkout(request):
+    return render(request,'products/checkout.html')

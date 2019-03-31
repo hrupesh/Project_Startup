@@ -1,39 +1,31 @@
-
-
-{% extends 'products/base.html' %}
-
-{% block cart %} {% load staticfiles %}
+ {% extends 'products/base.html' %} {% block cart %} {% load staticfiles %}
 
 
 
 <div class="container mt-5 w-75">
-        <h4> Delivering To :<span class="text-danger">  {{ register_models.firstname }} {{ register_models.lastname }}</span>
-            <a href="{% url 'edit_profile_page'%}"> <i class="fas fa-user-edit  float-right text-danger"></i></a>
-        </h4>
+    <h4> Delivering To :<span class="text-danger">  {{ register_models.firstname }} {{ register_models.lastname }}</span>
+        <a href="{% url 'edit_profile_page'%}"> <i class="fas fa-user-edit  float-right text-danger"></i></a>
+    </h4>
 
+    <h4>
+        Delivering At : {% for i in add %}
+        <span class="text-info"> {{ i.service_area }}, {{ i.local_address }} </span> {% endfor %}
+        <a href="{% url 'edit_address' %}"> <i class="fas fa-pencil-alt  float-right text-info"></i> </a>
+    </h4>
+
+    <h4 class="">
+        <form method="POST" class="" action="promo">
+            {% csrf_token %} Promo-code :
+            <input type="text" class="col col-sm-8 col-md-8 form-control" placeholder="No-promo">
+            <button type="submit" class="btn-info col active ml-4"> Apply</button>
+        </form>
+    </h4>
+
+    <h4>
         <h4>
-            Delivering At :
-            {% for i in add %}
-            <span class="text-info"> {{ i.service_area }}, {{ i.local_address }} </span>
-            {% endfor %}
-            <a href="{% url 'edit_address' %}"> <i class="fas fa-pencil-alt  float-right text-info"></i> </a>
-        </h4>
-
-            <h4 class="">
-                <form method="POST" class="" action="promo">
-                {% csrf_token %}        
-                Promo-code :
-                    <input type="text" class="col col-sm-8 col-md-8 form-control" placeholder="No-promo">
-                    <button type="submit" class="btn-info col active ml-4" > Apply</button>
-                </form>
-            </h4>
-            
-            <h4>
-                <h4>
-                    <form method="POST" action="promo">
-                    {% csrf_token %}
-                    Time-slot &nbsp;:       
-                            <select id="user_time_zone" class="btn-info active col-md-5">
+            <form method="POST" action="promo">
+                {% csrf_token %} Time-slot &nbsp;:
+                <select id="user_time_zone" class="btn-info active col-md-5">
                               <option value="Hawaii"><b>First-slot: 7:00am - 10:00am</b></option>
                               <option value="Alaska">Secand-slot: 10:am - 1:00pm</option>
                               <option value="Pacific Time (US &amp; Canada)">Third_slot: 1:00pm - 4:00pm</option>
@@ -41,90 +33,87 @@
                               <option value="Mountain Time (US &amp; Canada)">Fifth_slot: 7:00pm - 9:00pm</option>
                               
                             </select>
-                            <button type="submit" class="btn-info active float-right"> Apply</button>
-                          
-                    </form>
-                </h4>
-            </h4>
+                <button type="submit" class="btn-info active float-right"> Apply</button>
+
+            </form>
+        </h4>
+    </h4>
 </div>
 
 
 <br>
 
 <div class="container">
-{% if empty %}
-    <h1 class="text-center">{{  message }}</h1>
-{% endif %}
+    {% if empty %}
+    <h1 class="text-center">{{ message }}</h1>
+    {% endif %}
 
     <div class='col-sm-12 col-sm-offset-2'>
         <table class="table">
 
-         <thead>
-            <th>    
-                Name of products
-            </th>
-            <th>    
-                Image
-            </th>
-            <th>
-                Quantity
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Sub-Total
-            </th>
-            <th>
-                Remove
-            </th>
-            
-        </thead>
-        <tfoot>
-            <td><strong>Total:</strong></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong>{{ cart.Total }}</strong></td>
-        </tfoot>
-        {% for item in cart.cartitem_set.all %}
-        <tr>
-            <td>
-                <b>{{ item.product }}</b>
-            </td>
-            <td>
-                <img src="{% static 'images/dafault_image.png' %}" class="img-responsive" style="width:80%; height: 100px; margin: 0%;">
-            </td>
-            <td>
-                {{ item.quantity }}
-            </td>
-            <td>
-                {{ item.price }}
-            </td>
-            <td>
+            <thead>
+                <th>
+                    Name of products
+                </th>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Sub-Total
+                </th>
+                <th>
+                    Remove
+                </th>
 
-            </td>
-            <td>
-                <a href="{% url 'cart_update' item.product.slug %}?qty=0">
+            </thead>
+            <tfoot>
+                <td><strong>Total:</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>{{ cart.Total }}</strong></td>
+            </tfoot>
+            {% for item in cart.cartitem_set.all %}
+            <tr>
+                <td>
+                    <b>{{ item.product }}</b>
+                </td>
+                <td>
+                    <img src="{% static 'images/dafault_image.png' %}" class="img-responsive" style="width:80%; height: 100px; margin: 0%;">
+                </td>
+                <td>
+                    {{ item.quantity }}
+                </td>
+                <td>
+                    {{ item.price }}
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <a href="{% url 'cart_update' item.product.slug %}?qty=0">
                 Remove
                 </a>
-            </td>
-        </tr>    
-        {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
         </table>
 
 
-        
-    <div class="page-header row">
-        <a href="#" class="col-md-6"><b>Checkout</b></a>
-        <a href="{% url 'home' %}" class="col-md-6 pull-right" ><b>Continue shopping</b></a>
+
+        <div class="page-header row">
+            <a href="{% url 'checkout' %}}" class="col-md-6"><b>Checkout</b></a>
+            <a href="{% url 'home' %}" class="col-md-6 pull-right"><b>Continue shopping</b></a>
+        </div>
     </div>
 </div>
-</div>
-{% endblock %}
-
-
-{% block line %}
+{% endblock %} {% block line %}
 
 
 <div class="colorlib-intro">
@@ -137,82 +126,79 @@
     </div>
 </div>
 
-{% endblock %}
-
-
-{% block body %} {% load staticfiles %}
+{% endblock %} {% block body %} {% load staticfiles %}
 <div class="container mt-4 w-75">
-        <div class="row">
-            {% for product in products %}
-            <div class="col-md-4 col-sm-12 col-12">
-                {% for item in product.product_image_set.all %}
-                <div class="card border-dark mb-4" style="width:100%;">
-                    <a href="{% url 'details' product.slug %}">
-                        <img class="card-img-top" style="height:250px;" src="{% static 'images/dafault_image.png' %}" alt="Card image cap"> {% endfor %}
-                    </a>
-                    <div class="card-body">
-    
-                        <div class="row">
-    
-                            <div class="col text-center p-0">
-    
-                                <a href="{% url 'details' product.slug %}">
-                                    <span class="text-darken-4"><h6>{{ product.title }}</h6></span>
-                                </a>
-                            </div>
-    
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 col-sm-12 col-12">
+            {% for item in product.product_image_set.all %}
+            <div class="card border-dark mb-4" style="width:100%;">
+                <a href="{% url 'details' product.slug %}">
+                    <img class="card-img-top" style="height:250px;" src="{% static 'images/dafault_image.png' %}" alt="Card image cap"> {% endfor %}
+                </a>
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col text-center p-0">
+
+                            <a href="{% url 'details' product.slug %}">
+                                <span class="text-darken-4"><h6>{{ product.title }}</h6></span>
+                            </a>
                         </div>
-    
-                        <div class="row">
-                            <div class="col">
-                                {% for item in product.product_price_set.all %}
-                                <span class="text-muted">M.R.P: <del> {{item.mrp}} </del></span> {% endfor %}
-                            </div>
-                            <div class="col text-right p-0">
-                                {% for item in product.product_price_set.all %}
-                                <span class="text-darken-4"><i class="fas fa-rupee-sign"></i> {{ item.price }}(Kg)</span> {% endfor %}
-                            </div>
-                            <div class="col text-left pr-1">
-                                {% for item in product.product_discount_set.all %}
-                                <span class="text-success"> {{ item.Offer_in_percentage }}% OFF</span> {% endfor %}
-                            </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            {% for item in product.product_price_set.all %}
+                            <span class="text-muted">M.R.P: <del> {{item.mrp}} </del></span> {% endfor %}
                         </div>
-                        <div class="row mt-3">
-                            <button id="addbtn{{forloop.counter}}" class="btn col-2 btn-success" style="margin-left: 10px; margin-right:-10px;"><i
+                        <div class="col text-right p-0">
+                            {% for item in product.product_price_set.all %}
+                            <span class="text-darken-4"><i class="fas fa-rupee-sign"></i> {{ item.price }}(Kg)</span> {% endfor %}
+                        </div>
+                        <div class="col text-left pr-1">
+                            {% for item in product.product_discount_set.all %}
+                            <span class="text-success"> {{ item.Offer_in_percentage }}% OFF</span> {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <button id="addbtn{{forloop.counter}}" class="btn col-2 btn-success" style="margin-left: 10px; margin-right:-10px;"><i
                                 class="fa fa-plus" style="position: absolute;top:25%;right:25%;"></i></button>
-                            <form method="GET" class="col col-xl-8 col-sm-6 ml-1 mr-1" action="{% url 'cart_update' product.slug  %}">
-                                {% csrf_token %}
-                                <input type="hidden" value="1" name="carth">
-                                <button class="btn btn-outline-primary atc" style="padding-left:10px; width: 100%;" type="submit">Add to Cart (<span id="cartqty{{forloop.counter}}">1</span>) </button>
-                            </form>
-                            <button class="btn col-2  btn-danger " style=" margin-left:-10px;" id="subbtn{{forloop.counter}}"><i
+                        <form method="GET" class="col col-xl-8 col-sm-6 ml-1 mr-1" action="{% url 'cart_update' product.slug  %}">
+                            {% csrf_token %}
+                            <input type="hidden" value="1" name="carth">
+                            <button class="btn btn-outline-primary atc" style="padding-left:10px; width: 100%;" type="submit">Add to Cart (<span id="cartqty{{forloop.counter}}">1</span>) </button>
+                        </form>
+                        <button class="btn col-2  btn-danger " style=" margin-left:-10px;" id="subbtn{{forloop.counter}}"><i
                                 class="fas fa-minus" style="position: absolute;top:25%;right:25%;"></i></button>
-                        </div>
                     </div>
                 </div>
             </div>
-            <script>
-                $('#carth').val('0')
-                $('#addbtn{{forloop.counter}}').on('click', function() {
-                    items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
-                    if (items <
-                        20) {
-                        items += 1;
-                    }
-                    $('#cartqty{{forloop.counter}}').html(items)
-                    $('[name="carth"]').val(items)
-                });
-                $('#subbtn{{forloop.counter}}').on('click', function() {
-                    items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
-                    if (items > 1) {
-                        items -= 1;
-                    }
-                    $('#cartqty{{forloop.counter}}').html(items)
-                    $('[name="carth"]').val(items)
-                });
-            </script>
-            {% endfor %}
-            <span type="hidden" id="hspan" name="hspan">
+        </div>
+        <script>
+            $('#carth').val('0')
+            $('#addbtn{{forloop.counter}}').on('click', function() {
+                items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                if (items <
+                    20) {
+                    items += 1;
+                }
+                $('#cartqty{{forloop.counter}}').html(items)
+                $('[name="carth"]').val(items)
+            });
+            $('#subbtn{{forloop.counter}}').on('click', function() {
+                items = parseInt(document.getElementById('cartqty{{forloop.counter}}').innerText);
+                if (items > 1) {
+                    items -= 1;
+                }
+                $('#cartqty{{forloop.counter}}').html(items)
+                $('[name="carth"]').val(items)
+            });
+        </script>
+        {% endfor %}
+        <span type="hidden" id="hspan" name="hspan">
         </div>
     </div>
     
